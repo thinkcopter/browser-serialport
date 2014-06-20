@@ -8,7 +8,9 @@
 
   "app": {
     "background": {
-      "scripts": ["background.js"]
+      "scripts": [
+      "background.js"
+      ]
     }
   },
 
@@ -18,7 +20,9 @@
   },
 
   "permissions": [
-    "serial"
+    "serial",
+    {"socket": ["tcp-connect"]},
+    "usb"
   ]
 
 }

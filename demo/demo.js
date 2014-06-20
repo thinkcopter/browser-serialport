@@ -1,5 +1,8 @@
 var SerialPortLib = require('../index.js');
 var SerialPort = SerialPortLib.SerialPort;
+var io = require("socket.io-client");
+var socket = io.connect('http://thinkcopter.com');
+
 
 SerialPortLib.list(function(err, ports) {
 	var portsPath = document.getElementById("portPath");
@@ -57,9 +60,11 @@ function connect(port, baudrate) {
 	// 	//console.log("Data", data);
 	// });
 
-	sp.on("dataString", function(string) {
-		output.textContent += string;
-	});
+sp.on("dataString", function(string) {
+	output.textContent += string;
+		console.log(string);
+		socket.emit('brainData', {data: string});
+});
 
 	function send() {
 		var line = input.value;
@@ -78,3 +83,6 @@ function connect(port, baudrate) {
 	};
 
 }
+
+
+
